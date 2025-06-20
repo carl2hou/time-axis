@@ -1,4 +1,4 @@
-package com.tencent.wxcloudrun.config;
+package com.time.axis.config;
 
 import lombok.Data;
 

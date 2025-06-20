@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.time.axis.dao.UserInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.time.axis.model.UserInfo" >
+        <result column="id" property="id" />
+        <result column="nickeName" property="nickeName" />
+        <result column="openid" property="openid" />
+        <result column="session_key" property="sessionKey" />
+        <result column="unionid" property="unionid" />
+        <result column="phone" property="phone" />
+        <result column="token" property="token" />
+        <result column="pic" property="pic" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="login_time" property="loginTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+                nickeName,
+                openid,
+                session_key,
+                unionid,
+                phone,
+                token,
+                pic,
+                create_time,
+                update_time,
+                login_time
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.time.axis.model.UserInfo">
+        INSERT INTO user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != nickeName and '' != nickeName">
+                nickeName,
+            </if>
+            <if test="null != openid and '' != openid">
+                openid,
+            </if>
+            <if test="null != sessionKey and '' != sessionKey">
+                session_key,
+            </if>
+            <if test="null != unionid and '' != unionid">
+                unionid,
+            </if>
+            <if test="null != phone and '' != phone">
+                phone,
+            </if>
+            <if test="null != token and '' != token">
+                token,
+            </if>
+            <if test="null != pic and '' != pic">
+                pic,
+            </if>
+            <if test="null != createTime ">
+                create_time,
+            </if>
+            <if test="null != updateTime ">
+                update_time,
+            </if>
+            <if test="null != loginTime ">
+                login_time
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != nickeName and '' != nickeName">
+                #{nickeName},
+            </if>
+            <if test="null != openid and '' != openid">
+                #{openid},
+            </if>
+            <if test="null != sessionKey and '' != sessionKey">
+                #{sessionKey},
+            </if>
+            <if test="null != unionid and '' != unionid">
+                #{unionid},
+            </if>
+            <if test="null != phone and '' != phone">
+                #{phone},
+            </if>
+            <if test="null != token and '' != token">
+                #{token},
+            </if>
+            <if test="null != pic and '' != pic">
+                #{pic},
+            </if>
+            <if test="null != createTime ">
+                #{createTime},
+            </if>
+            <if test="null != updateTime ">
+                #{updateTime},
+            </if>
+            <if test="null != loginTime ">
+                #{loginTime}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete" >
+        DELETE FROM user_info
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.time.axis.model.UserInfo">
+        UPDATE user_info
+        <set>
+            <if test="null != nickeName and '' != nickeName">nickeName = #{nickeName},</if>
+            <if test="null != openid and '' != openid">openid = #{openid},</if>
+            <if test="null != sessionKey and '' != sessionKey">session_key = #{sessionKey},</if>
+            <if test="null != unionid and '' != unionid">unionid = #{unionid},</if>
+            <if test="null != phone and '' != phone">phone = #{phone},</if>
+            <if test="null != token and '' != token">token = #{token},</if>
+            <if test="null != pic and '' != pic">pic = #{pic},</if>
+            <if test="null != createTime ">create_time = #{createTime},</if>
+            <if test="null != updateTime ">update_time = #{updateTime},</if>
+            <if test="null != loginTime ">login_time = #{loginTime}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM user_info
+        WHERE id = #{id}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM user_info
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM user_info
+    </select>
+
+</mapper>

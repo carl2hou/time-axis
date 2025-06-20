@@ -1,4 +1,4 @@
-package com.tencent.wxcloudrun;
+package com.time.axis;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
