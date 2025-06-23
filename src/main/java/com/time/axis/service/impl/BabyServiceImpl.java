@@ -6,6 +6,7 @@ import com.time.axis.service.BabyService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @description t_baby
@@ -21,7 +22,9 @@ public class BabyServiceImpl implements BabyService {
 
 	@Override
 	public Integer insert(Baby tBaby) {
-
+		Date now = new Date();
+		tBaby.setCreateTime(now);
+		tBaby.setUpdateTime(now);
 		return tBabyMapper.insert(tBaby);
 	}
 

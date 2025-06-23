@@ -1,12 +1,16 @@
 package com.time.axis.service.impl;
 
+import com.time.axis.controller.BabyInfoIn;
 import com.time.axis.emnus.CommonConstant;
 import com.time.axis.in.UserCode2sessionIn;
 import com.time.axis.in.UserInfoIn;
+import com.time.axis.model.Baby;
 import com.time.axis.model.UserInfo;
+import com.time.axis.service.BabyService;
 import com.time.axis.service.UserApiService;
 import com.time.axis.service.UserInfoService;
 import com.time.axis.service.WechatService;
+import com.time.axis.util.EmptyCheckUtil;
 import com.time.axis.util.SM4Util;
 import com.time.axis.util.StringUtils;
 import com.time.axis.vo.WechatUserCode2sessionOut;
@@ -28,8 +32,15 @@ public class UserApiServiceImpl implements UserApiService {
     @Resource
     UserInfoService userInfoService;
 
+    @Resource
+    BabyService babyService;
+
     @Override
     public String getToken(UserCode2sessionIn in) {
+        boolean isInvalid = EmptyCheckUtil.isAnyBlank(in.getCode());
+        if(isInvalid) {
+            throw new RuntimeException("参数错误");
+        }
         WechatUserCode2sessionOut wechatUserCode2session = wechatService.getWechatUserCode2session(in);
         if(wechatUserCode2session == null){
             log.error("获取session_key失败");
@@ -70,5 +81,31 @@ public class UserApiServiceImpl implements UserApiService {
             throw new RuntimeException("用户信息不存在");
         }
         return userInfo;
+    }
+
+    @Override
+    public Boolean babyInfoSave(BabyInfoIn in) {
+        boolean isInvalidBlank = EmptyCheckUtil.isAnyBlank(in.getBabyName(), in.getFamilyName());
+        boolean isInvalidEmpty = EmptyCheckUtil.isAnyEmpty(in.getUserId());
+        if(isInvalidBlank || isInvalidEmpty) {
+            throw new RuntimeException("参数错误");
+        }
+        Baby baby = new Baby(null,in.getBabyName(),in.getSex(),in.getPic(),in.getUserId(),in.getFamilyName(),null,null);
+        Integer insert = babyService.insert(baby);
+        return insert > 0;
+    }
+
+    @Override
+    public Baby getBabyInfo(BabyInfoIn in) {
+        boolean isInvalid = EmptyCheckUtil.isAnyEmpty(in.getId());
+        if(isInvalid) {
+            throw new RuntimeException("参数错误");
+        }
+        Baby baby = babyService.load(in.getId());
+        if(baby == null){
+            log.error("宝宝信息不存在");
+            throw new RuntimeException("宝宝信息不存在");
+        }
+        return baby;
     }
 }

@@ -45,4 +45,13 @@ public class UserApiController {
         }
         throw new RuntimeException("用户信息不存在");
     }
+
+    @PostMapping("/baby/save")
+    public ApiResponse babyInfoSave(@RequestBody BabyInfoIn in){
+        Boolean isSave = userApiService.babyInfoSave(in);
+        return ApiResponse.ok(isSave);
+    }
+
+
+
 }
