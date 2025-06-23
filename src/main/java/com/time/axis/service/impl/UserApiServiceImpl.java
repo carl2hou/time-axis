@@ -2,6 +2,7 @@ package com.time.axis.service.impl;
 
 import com.time.axis.emnus.CommonConstant;
 import com.time.axis.in.UserCode2sessionIn;
+import com.time.axis.in.UserInfoIn;
 import com.time.axis.model.UserInfo;
 import com.time.axis.service.UserApiService;
 import com.time.axis.service.UserInfoService;
@@ -61,4 +62,13 @@ public class UserApiServiceImpl implements UserApiService {
         return null;
     }
 
+    @Override
+    public UserInfo getUserInfo(UserInfoIn in) {
+        UserInfo userInfo = userInfoService.load(in.getUserId());
+        if(userInfo == null){
+            log.error("用户信息不存在");
+            throw new RuntimeException("用户信息不存在");
+        }
+        return userInfo;
+    }
 }

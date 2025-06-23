@@ -2,6 +2,8 @@ package com.time.axis.controller;
 
 import com.time.axis.config.ApiResponse;
 import com.time.axis.in.UserCode2sessionIn;
+import com.time.axis.in.UserInfoIn;
+import com.time.axis.model.UserInfo;
 import com.time.axis.service.UserApiService;
 import com.time.axis.service.WechatService;
 import com.time.axis.vo.WechatUserCode2sessionOut;
@@ -35,4 +37,12 @@ public class UserApiController {
         return ApiResponse.ok(token);
     }
 
+    @PostMapping("/info")
+    public ApiResponse getUserInfo(@RequestBody UserInfoIn in){
+        UserInfo userInfo = userApiService.getUserInfo(in);
+        if(userInfo != null){
+            return ApiResponse.ok(userInfo);
+        }
+        throw new RuntimeException("用户信息不存在");
+    }
 }
