@@ -32,6 +32,11 @@ public interface UserInfoService {
     public UserInfo load(int id);
 
     /**
+     * 根据主键 openId 查询
+     */
+    public UserInfo loadByOpenId(String openId);
+
+    /**
     * 分页查询
     */
     public Map<String,Object> pageList(int offset, int pagesize);

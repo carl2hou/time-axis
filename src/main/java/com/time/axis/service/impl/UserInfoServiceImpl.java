@@ -28,8 +28,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		Date now = new Date();
 		userInfo.setCreateTime(now);
 		userInfo.setUpdateTime(now);
-		int insert = userInfoMapper.insert(userInfo);
-		return insert;
+		userInfo.setLoginTime(now);
+		return userInfoMapper.insert(userInfo);
 	}
 
 
@@ -45,8 +45,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public Integer update(UserInfo userInfo) {
 		Date now = new Date();
 		userInfo.setUpdateTime(now);
-		int ret = userInfoMapper.update(userInfo);
-		return ret;
+		return userInfoMapper.update(userInfo);
 	}
 
 
@@ -55,6 +54,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return userInfoMapper.load(id);
 	}
 
+	@Override
+	public UserInfo loadByOpenId(String openId) {
+		return null;
+	}
 
 	@Override
 	public Map<String,Object> pageList(int offset, int pagesize) {

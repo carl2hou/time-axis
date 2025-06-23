@@ -13,4 +13,14 @@ public class UserCode2sessionIn implements Serializable {
     private static final long serialVersionUID = 1326424274428972875L;
 
     private String code;
+
+    /**
+     * nickName
+     */
+    private String nickName;
+
+    /**
+     * 用户头像
+     */
+    private String pic;
 }

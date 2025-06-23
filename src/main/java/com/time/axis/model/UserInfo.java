@@ -1,6 +1,8 @@
 package com.time.axis.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Date;
  * @date 2025-06-20
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,9 +25,9 @@ public class UserInfo implements Serializable {
     private Integer id;
 
     /**
-    * nickeName
+    * nickName
     */
-    private String nickeName;
+    private String nickName;
 
     /**
     * openid
@@ -54,6 +58,8 @@ public class UserInfo implements Serializable {
      * 用户头像
      */
     private String pic;
+
+    private Integer delFlag;
 
     /**
      * create_time

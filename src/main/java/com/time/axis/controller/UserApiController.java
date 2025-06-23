@@ -1,8 +1,12 @@
 package com.time.axis.controller;
 
+import com.time.axis.config.ApiResponse;
 import com.time.axis.in.UserCode2sessionIn;
+import com.time.axis.service.UserApiService;
 import com.time.axis.service.WechatService;
 import com.time.axis.vo.WechatUserCode2sessionOut;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,24 +18,21 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/api/user")
+@Slf4j
 public class UserApiController {
 
     @Resource
-    WechatService wechatService;
+    UserApiService userApiService;
 
     /**
-     * 根据code获取微信用户session
+     * 根据code获取token
      * @param in
      * @return
      */
-    public String userCode2session(@RequestBody UserCode2sessionIn in){
-        WechatUserCode2sessionOut wechatUserCode2session = wechatService.getWechatUserCode2session(in);
-        if(wechatUserCode2session != null){
-            return wechatUserCode2session.getSession_key();
-        }
-
-        //mk 生成一条用户记录，用户授权后更新其昵称和头像
-        throw new RuntimeException("获取session_key失败");
+    @PostMapping("/token")
+    public ApiResponse userToken(@RequestBody UserCode2sessionIn in){
+        String token = userApiService.getToken(in);
+        return ApiResponse.ok(token);
     }
 
 }

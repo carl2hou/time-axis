@@ -4,13 +4,14 @@
 
     <resultMap id="BaseResultMap" type="com.time.axis.model.UserInfo" >
         <result column="id" property="id" />
-        <result column="nickeName" property="nickeName" />
+        <result column="nick_name" property="nickName" />
         <result column="openid" property="openid" />
         <result column="session_key" property="sessionKey" />
         <result column="unionid" property="unionid" />
         <result column="phone" property="phone" />
         <result column="token" property="token" />
         <result column="pic" property="pic" />
+        <result column="del_flag" property="delFlag" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="login_time" property="loginTime" />
@@ -18,13 +19,14 @@
 
     <sql id="Base_Column_List">
         id,
-                nickeName,
+                nick_name,
                 openid,
                 session_key,
                 unionid,
                 phone,
                 token,
                 pic,
+                del_flag,
                 create_time,
                 update_time,
                 login_time
@@ -33,8 +35,8 @@
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.time.axis.model.UserInfo">
         INSERT INTO user_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="null != nickeName and '' != nickeName">
-                nickeName,
+            <if test="null != nickName and '' != nickName">
+                nick_name,
             </if>
             <if test="null != openid and '' != openid">
                 openid,
@@ -54,6 +56,9 @@
             <if test="null != pic and '' != pic">
                 pic,
             </if>
+            <if test="null != delFlag">
+                del_flag,
+            </if>
             <if test="null != createTime ">
                 create_time,
             </if>
@@ -65,8 +70,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="null != nickeName and '' != nickeName">
-                #{nickeName},
+            <if test="null != nickName and '' != nickName">
+                #{nickName},
             </if>
             <if test="null != openid and '' != openid">
                 #{openid},
@@ -85,6 +90,9 @@
             </if>
             <if test="null != pic and '' != pic">
                 #{pic},
+            </if>
+            <if test="null != delFlag">
+                #{delFlag},
             </if>
             <if test="null != createTime ">
                 #{createTime},
@@ -106,13 +114,14 @@
     <update id="update" parameterType="com.time.axis.model.UserInfo">
         UPDATE user_info
         <set>
-            <if test="null != nickeName and '' != nickeName">nickeName = #{nickeName},</if>
+            <if test="null != nickName and '' != nickName">nick_name = #{nickName},</if>
             <if test="null != openid and '' != openid">openid = #{openid},</if>
             <if test="null != sessionKey and '' != sessionKey">session_key = #{sessionKey},</if>
             <if test="null != unionid and '' != unionid">unionid = #{unionid},</if>
             <if test="null != phone and '' != phone">phone = #{phone},</if>
             <if test="null != token and '' != token">token = #{token},</if>
             <if test="null != pic and '' != pic">pic = #{pic},</if>
+            <if test="null != delFlag">del_flag = #{delFlag},</if>
             <if test="null != createTime ">create_time = #{createTime},</if>
             <if test="null != updateTime ">update_time = #{updateTime},</if>
             <if test="null != loginTime ">login_time = #{loginTime}</if>
@@ -126,6 +135,13 @@
         FROM user_info
         WHERE id = #{id}
     </select>
+
+    <select id="loadByOpenId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM user_info
+        WHERE id = #{openId} order by id desc limit 1
+    </select>
+
 
     <select id="pageList" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />

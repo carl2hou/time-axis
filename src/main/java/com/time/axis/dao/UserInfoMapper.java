@@ -43,6 +43,13 @@ public interface UserInfoMapper {
     UserInfo load(int id);
 
     /**
+     * 查询 根据 openId 查询
+     * @param openId
+     * @return
+     */
+    UserInfo loadByOpenId(String openId);
+
+    /**
     * 查询 分页查询
     * @author carl
     * @date 2025/06/20
