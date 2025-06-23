@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
         // 注册拦截器并配置拦截规则
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/api/**")   // 拦截所有API路径
-                .excludePathPatterns(          // 排除不需要拦截的路径
+                .excludePathPatterns(          //排除不需要拦截的路径
                     "/api/user/token"
                 );
     }
