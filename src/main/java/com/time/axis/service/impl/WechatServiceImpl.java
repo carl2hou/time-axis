@@ -5,11 +5,13 @@ import com.time.axis.service.WechatService;
 import com.time.axis.vo.WechatUserCode2sessionOut;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * @author carl
  */
+@Service
 public class WechatServiceImpl implements WechatService {
 
     @Value("${wechat.appid}")
