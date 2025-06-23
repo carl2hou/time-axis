@@ -2,6 +2,7 @@ package com.time.axis.dao;
 
 import com.time.axis.model.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,13 +55,13 @@ public interface UserInfoMapper {
     * @author carl
     * @date 2025/06/20
     **/
-    List<UserInfo> pageList(int offset, int pagesize);
+    List<UserInfo> pageList(@Param("offset") int offset, @Param("pagesize") int pagesize);
 
     /**
     * 查询 分页查询 count
     * @author carl
     * @date 2025/06/20
     **/
-    int pageListCount(int offset,int pagesize);
+    int pageListCount(@Param("offset") int offset, @Param("pagesize") int pagesize);
 
 }

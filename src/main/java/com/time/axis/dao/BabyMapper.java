@@ -2,6 +2,7 @@ package com.time.axis.dao;
 
 import com.time.axis.model.Baby;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -46,13 +47,13 @@ public interface BabyMapper {
     * @author carl
     * @date 2025/06/20
     **/
-    List<Baby> pageList(int offset, int pagesize);
+    List<Baby> pageList(@Param("offset") int offset, @Param("pagesize") int pagesize);
 
     /**
     * 查询 分页查询 count
     * @author carl
     * @date 2025/06/20
     **/
-    int pageListCount(int offset,int pagesize);
+    int pageListCount(@Param("offset") int offset, @Param("pagesize") int pagesize);
 
 }
