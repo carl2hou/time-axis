@@ -19,7 +19,6 @@ import javax.annotation.Resource;
  * @author carl
  */
 @RestController
-@RequestMapping("/api/user")
 @Slf4j
 public class UserApiController {
 
@@ -31,7 +30,7 @@ public class UserApiController {
      * @param in
      * @return
      */
-    @PostMapping("/token")
+    @PostMapping("/api/user/token")
     public ApiResponse userToken(@RequestBody UserCode2sessionIn in){
         String token = userApiService.getToken(in);
         return ApiResponse.ok(token);
