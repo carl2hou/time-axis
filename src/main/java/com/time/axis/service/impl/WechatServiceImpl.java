@@ -1,5 +1,6 @@
 package com.time.axis.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.time.axis.in.UserCode2sessionIn;
 import com.time.axis.service.WechatService;
 import com.time.axis.vo.WechatUserCode2sessionOut;
@@ -23,12 +24,12 @@ public class WechatServiceImpl implements WechatService {
     public WechatUserCode2sessionOut getWechatUserCode2session(UserCode2sessionIn in) {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<WechatUserCode2sessionOut> response = restTemplate.getForEntity(
+        ResponseEntity<String> response = restTemplate.getForEntity(
             url + "?appid={appid}&secret={secret}&js_code={js_code}&grant_type={grant_type}",
-            WechatUserCode2sessionOut.class, appid, secret, in.getCode(),
+            String.class, appid, secret, in.getCode(),
             "authorization_code"
         );
-        return response.getBody();
+        return JSONObject.parseObject(response.getBody(), WechatUserCode2sessionOut.class);
     }
 
 }

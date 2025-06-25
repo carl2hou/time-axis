@@ -56,7 +56,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public UserInfo loadByOpenId(String openId) {
-		return null;
+		return userInfoMapper.loadByOpenId(openId);
 	}
 
 	@Override

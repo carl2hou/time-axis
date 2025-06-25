@@ -1,0 +1,21 @@
+server:
+  port: 80
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://sh-cynosdbmysql-grp-q0z9ls8q.sql.tencentcdb.com:24351/time-axis
+    username: root
+    password: Time@axis
+  mvc:
+    view:
+      suffix: .html
+      prefix: /
+
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+
+wechat:
+  appid: 'wxeb27d6f549db1784'
+  secret: '5218aaac2277d46d253a8992226ee831'

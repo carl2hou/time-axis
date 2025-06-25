@@ -19,17 +19,17 @@
 
     <sql id="Base_Column_List">
         id,
-                nick_name,
-                openid,
-                session_key,
-                unionid,
-                phone,
-                token,
-                pic,
-                del_flag,
-                create_time,
-                update_time,
-                login_time
+        nick_name,
+        openid,
+        session_key,
+        unionid,
+        phone,
+        token,
+        pic,
+        del_flag,
+        create_time,
+        update_time,
+        login_time
     </sql>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.time.axis.model.UserInfo">
@@ -139,7 +139,7 @@
     <select id="loadByOpenId" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
         FROM user_info
-        WHERE id = #{openId} order by id desc limit 1
+        WHERE openId = #{openId} order by id desc limit 1
     </select>
 
 

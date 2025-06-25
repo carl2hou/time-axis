@@ -1,0 +1,12 @@
+
+POST http://localhost/api/user/token
+Content-Type: application/json
+
+{
+    "code": "0d3aWBll2By0Of45YNol2qn9PI1aWBlF",
+    "nickName": "Carl",
+    "pic": "http://tmp/1OW1wRs61GQd83418935f8bdb5aebebaef143469a60b.jpeg"
+}
+
+###
+

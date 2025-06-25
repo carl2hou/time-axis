@@ -43,7 +43,7 @@ public class UserApiServiceImpl implements UserApiService {
         }
         WechatUserCode2sessionOut wechatUserCode2session = wechatService.getWechatUserCode2session(in);
         if(wechatUserCode2session == null){
-            log.error("获取session_key失败");
+            throw new RuntimeException("获取session_key失败,code:" + in.getCode());
         }
 
         String openid = wechatUserCode2session.getOpenid();
