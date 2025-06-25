@@ -155,8 +155,11 @@ public class SM4Util {
 
     // 测试用例
     public static void main(String[] args) throws Exception {
+
+
         // 生成密钥
-        String key = generateKey();
+        //String key = generateKey();
+        String key = "1c8bd2186715be2abbd00cce94c35e91";
         System.out.println("生成密钥: " + key);
 
         String plainText = "oOpPE5MG8ExsfZrIUUCc2gcMllR0";

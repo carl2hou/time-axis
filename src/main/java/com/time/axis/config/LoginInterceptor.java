@@ -45,10 +45,9 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     private boolean validateCredentials(String openId, String token) {
         boolean result = false;
-        String key = null;
+
         try {
-            key = SM4Util.generateKey();
-            String decrypt = SM4Util.decrypt(token, key, CommonConstant.SM4_MODE_CBC);
+            String decrypt = SM4Util.decrypt(token, CommonConstant.SM4_KEY, CommonConstant.SM4_MODE_ECB);
             result = openId.equals(decrypt);
         } catch (Exception e) {
             throw new RuntimeException(e);

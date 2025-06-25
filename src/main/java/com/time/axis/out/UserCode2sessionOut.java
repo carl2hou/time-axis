@@ -18,4 +18,8 @@ public class UserCode2sessionOut implements Serializable {
 
     private String openid;
 
+    /**
+     * id
+     */
+    private Integer userId;
 }

@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author carl
@@ -53,19 +54,18 @@ public class UserApiServiceImpl implements UserApiService {
             if(StringUtils.isNotBlank(in.getPic()) || StringUtils.isNotBlank(in.getNickName())){
                 userInfo.setNickName(in.getNickName());
                 userInfo.setPic(in.getPic());
+                userInfo.setLoginTime(new Date());
                 userInfoService.update(userInfo);
             }
-            return UserCode2sessionOut.builder().openid(openid).token(userInfo.getToken()).build();
+            return UserCode2sessionOut.builder().openid(openid).token(userInfo.getToken()).userId(userInfo.getId()).build();
         }
-        String sm4Key = null;
         try {
-            sm4Key = SM4Util.generateKey();
-            String token = SM4Util.encrypt(openid,sm4Key, CommonConstant.SM4_MODE_CBC);
+            String token = SM4Util.encrypt(openid,CommonConstant.SM4_KEY, CommonConstant.SM4_MODE_ECB);
             UserInfo user = new UserInfo(null, in.getNickName(), openid, wechatUserCode2session.getSession_key(), wechatUserCode2session.getUnionid(),
                     null, token, in.getPic(), CommonConstant.DEL_NO, null, null, null);
             Integer insertCount = userInfoService.insert(user);
             if(insertCount > 0){
-                return UserCode2sessionOut.builder().openid(openid).token(token).build();
+                return UserCode2sessionOut.builder().openid(openid).token(token).userId(userInfo.getId()).build();
             }
         } catch (Exception e) {
             log.error("生成token失败",e);
