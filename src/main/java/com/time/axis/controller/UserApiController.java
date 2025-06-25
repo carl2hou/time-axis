@@ -4,6 +4,7 @@ import com.time.axis.config.ApiResponse;
 import com.time.axis.in.UserCode2sessionIn;
 import com.time.axis.in.UserInfoIn;
 import com.time.axis.model.UserInfo;
+import com.time.axis.out.UserCode2sessionOut;
 import com.time.axis.service.UserApiService;
 import com.time.axis.service.WechatService;
 import com.time.axis.vo.WechatUserCode2sessionOut;
@@ -33,8 +34,8 @@ public class UserApiController {
      */
     @PostMapping("/token")
     public ApiResponse userToken(@RequestBody UserCode2sessionIn in){
-        String token = userApiService.getToken(in);
-        return ApiResponse.ok(token);
+        UserCode2sessionOut out = userApiService.getToken(in);
+        return ApiResponse.ok(out);
     }
 
     @PostMapping("/info")

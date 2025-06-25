@@ -6,6 +6,7 @@ import com.time.axis.in.UserCode2sessionIn;
 import com.time.axis.in.UserInfoIn;
 import com.time.axis.model.Baby;
 import com.time.axis.model.UserInfo;
+import com.time.axis.out.UserCode2sessionOut;
 import com.time.axis.service.BabyService;
 import com.time.axis.service.UserApiService;
 import com.time.axis.service.UserInfoService;
@@ -36,7 +37,7 @@ public class UserApiServiceImpl implements UserApiService {
     BabyService babyService;
 
     @Override
-    public String getToken(UserCode2sessionIn in) {
+    public UserCode2sessionOut getToken(UserCode2sessionIn in) {
         boolean isInvalid = EmptyCheckUtil.isAnyBlank(in.getCode());
         if(isInvalid) {
             throw new RuntimeException("参数错误");
@@ -54,7 +55,7 @@ public class UserApiServiceImpl implements UserApiService {
                 userInfo.setPic(in.getPic());
                 userInfoService.update(userInfo);
             }
-            return userInfo.getToken();
+            return UserCode2sessionOut.builder().openid(openid).token(userInfo.getToken()).build();
         }
         String sm4Key = null;
         try {
@@ -64,7 +65,7 @@ public class UserApiServiceImpl implements UserApiService {
                     null, token, in.getPic(), CommonConstant.DEL_NO, null, null, null);
             Integer insertCount = userInfoService.insert(user);
             if(insertCount > 0){
-                return token;
+                return UserCode2sessionOut.builder().openid(openid).token(token).build();
             }
         } catch (Exception e) {
             log.error("生成token失败",e);
